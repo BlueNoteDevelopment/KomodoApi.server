@@ -1,0 +1,510 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"strpa",
+				"str_pad"
+			],
+			[
+				"str_re",
+				"str_replace"
+			],
+			[
+				"strto",
+				"strtolower"
+			],
+			[
+				"json_",
+				"json_encode"
+			],
+			[
+				"pas",
+				"password"
+			],
+			[
+				"json",
+				"json.jsonify\tFlask"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"te",
+				"text-transform"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"stri",
+				"strip_tags"
+			],
+			[
+				"is_",
+				"is_array"
+			],
+			[
+				"borer-bottom",
+				"border-bottom"
+			],
+			[
+				"cons",
+				"console.log('$0');"
+			],
+			[
+				"ini",
+				"ini_set"
+			],
+			[
+				"bas",
+				"base64_encode"
+			],
+			[
+				"session",
+				"session_start"
+			],
+			[
+				"api",
+				"apiKey"
+			],
+			[
+				"ur",
+				"urlencode"
+			],
+			[
+				"sess",
+				"session_start"
+			],
+			[
+				"mysql_err",
+				"mysql_error"
+			],
+			[
+				"Shipper",
+				"ShipperServiceType"
+			],
+			[
+				"include",
+				"set_include_path"
+			],
+			[
+				"for",
+				"foreach\tforeach …"
+			],
+			[
+				"mysq",
+				"mysql_error"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 117.0,
+		"last_filter": "install package",
+		"selected_items":
+		[
+			[
+				"install package",
+				"Package Control: Install Package"
+			],
+			[
+				"py",
+				"Python Breakpoints: Toggle"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: List Packages"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			],
+			[
+				"java",
+				"Javascript Beautify"
+			],
+			[
+				"php",
+				"Format: Php"
+			],
+			[
+				"format",
+				"CodeFormatter: Format as Javascript Syntax"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Preferences: Browse Packages"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control:",
+				"Package Control: List Packages"
+			]
+		],
+		"width": 536.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Workspaces/EverGrid/KomodoApi.Server"
+	],
+	"file_history":
+	[
+		"/C/Users/Andy/Desktop/komodo-api-demo-sheet.xlsx",
+		"/C/xampp/htdocs/komodo-api/.htaccess",
+		"/C/xampp/htdocs/komodo-api/.htpasswd",
+		"/C/xampp/htdocs/komodo-api/api/upload/index.php",
+		"/C/xampp/htdocs/komodo-api/web/index.html",
+		"/C/xampp/htdocs/komodo-api/web/config.php",
+		"/C/xampp/htdocs/komodo-api/api/config/index.php",
+		"/C/xampp/htdocs/komodo-api/services/index.html",
+		"/C/xampp/htdocs/komodo-api/migrationScripts/index.html",
+		"/C/xampp/htdocs/komodo-api/tmp/index.html",
+		"/C/xampp/htdocs/komodo-api/vendor/index.html",
+		"/C/xampp/htdocs/komodo-api/services/reader/fileLoader.php",
+		"/C/xampp/htdocs/komodo-api/services/database/DbConnection.php",
+		"/C/xampp/htdocs/komodo-api/api/fetch/index.php",
+		"/C/xampp/htdocs/komodo-api/index.html",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/ngApp/app.js",
+		"/C/xampp/htdocs/komodo-api/server/upload.php",
+		"/C/xampp/htdocs/komodo-api/server/upload/index.php",
+		"/C/xampp/htdocs/komodo-api/index.php",
+		"/C/xampp/htdocs/komodo-api/server/index.php",
+		"/C/xampp/htdocs/komodo-api/server/api/upload/index.php",
+		"/C/xampp/htdocs/komodo-api/server/services/database/DbConnection.php",
+		"/C/xampp/htdocs/komodo-api/server/migrationScripts/collection_config.sql",
+		"/C/xampp/htdocs/komodo-api/server/services/database/iDbConnection.php",
+		"/C/xampp/htdocs/komodo-api/server/services/reader/fileLoader.php",
+		"/C/xampp/htdocs/komodo-api/server/services/database/async/Query.php",
+		"/C/xampp/htdocs/komodo-api/server/migrationScripts/create_queue.sql",
+		"/C/xampp/htdocs/komodo-api/server/services/reader/iFileLoader.php",
+		"/C/xampp/htdocs/komodo-api/server/config.php",
+		"/C/xampp/htdocs/komodo-api/config.php",
+		"/C/xampp/htdocs/komodo-api/server/tmp/junk.xlsx",
+		"/C/xampp/htdocs/komodo-api/server/userConfig.json",
+		"/C/xampp/htdocs/komodo-api/server/services/database/async/Connect.php",
+		"/C/xampp/htdocs/komodo-api/app/js/app.module.js",
+		"/C/xampp/htdocs/komodo-api/app/index.html",
+		"/C/xampp/htdocs/komodo-api/app/home/home.controller.js",
+		"/C/xampp/htdocs/komodo-api/app/assets/js/dist/main.js",
+		"/C/xampp/htdocs/komodo-api/app/home/home.html",
+		"/C/xampp/htdocs/komodo-api/package.json",
+		"/C/xampp/htdocs/komodo-api/gulpfile.js",
+		"/K/Workspaces/Yardaroo/prototype/package.json",
+		"/K/Workspaces/Yardaroo/prototype/gulpfile.js",
+		"/C/xampp/htdocs/komodo-api/server/services/database/AscyncDbConnection.php",
+		"/K/Workspaces/Yardaroo/MeanApp/app/routes.js",
+		"/K/Workspaces/Yardaroo/MeanApp/app/models/user.js",
+		"/K/Workspaces/Yardaroo/MeanApp/app/utils.js",
+		"/K/Workspaces/Yardaroo/MeanApp/server.js",
+		"/K/Workspaces/Yardaroo/MeanApp/app/errors/NotFoundError.js",
+		"/K/Workspaces/Yardaroo/MeanApp/errors/UnauthorizedAccessError.js",
+		"/K/Workspaces/Yardaroo/MeanApp/package.json",
+		"/K/Workspaces/Yardaroo/MeanApp/public/index.html",
+		"/K/Workspaces/Yardaroo/MeanApp/public/style.css",
+		"/K/Workspaces/Yardaroo/MeanApp/public/partials/queryForm.html",
+		"/K/Workspaces/Yardaroo/MeanApp/public/partials/addForm.html",
+		"/K/Workspaces/Yardaroo/MeanApp/public/js/gservice.js",
+		"/K/Workspaces/Yardaroo/MeanApp/config.js",
+		"/K/Workspaces/Yardaroo/MeanApp/app/models/index.js",
+		"/K/Workspaces/Yardaroo/MeanApp/app/models/location.js",
+		"/K/Workspaces/Yardaroo/MeanApp/public/js/queryCtrl.js",
+		"/K/Workspaces/Yardaroo/MeanApp/public/js/app.js",
+		"/K/Workspaces/Yardaroo/MeanApp/public/js/addCtrl.js",
+		"/K/Workspaces/Yardaroo/MeanApp/utils.js",
+		"/C/Users/Andy/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Andy/AppData/Roaming/Sublime Text 3/Packages/GitGutter/GitGutter.sublime-settings",
+		"/C/Ruby23-x64/RbDevKit/config.yml",
+		"/C/RailsInstaller/RbDevKit/config.yml",
+		"/C/data/db/collection-2--745251988144549971.wt",
+		"/C/data/db/storage.bson",
+		"/K/Workspaces/Yardaroo/prototype/app/index.html",
+		"/K/Workspaces/Yardaroo/prototype/app/js/app.module.js",
+		"/K/Workspaces/Yardaroo/prototype/app/app.config.json",
+		"/K/Workspaces/Yardaroo/prototype/app/sass/styles.scss",
+		"/K/Workspaces/Yardaroo/prototype/app/map/map.controller.js",
+		"/K/Workspaces/Yardaroo/prototype/app/search/search.controller.js",
+		"/K/Workspaces/Yardaroo/prototype/app/map/map.html",
+		"/K/Workspaces/Yardaroo/prototype/app/map/map.directive.js",
+		"/K/Workspaces/Yardaroo/prototype/app/map/map.directive.html",
+		"/K/Workspaces/Yardaroo/prototype/app/map/map.route.html",
+		"/K/Workspaces/Yardaroo/prototype/app/search/search.html",
+		"/K/Workspaces/Yardaroo/prototype/app/search/search.filter.html",
+		"/K/Workspaces/Yardaroo/prototype/app/assets/css/dist/styles.css",
+		"/C/Users/Andy/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/K/Workspaces/Yardaroo/prototype/app/assets/js/dist/main.min.js",
+		"/K/Workspaces/Yardaroo/prototype/app/assets/js/dist/main.js",
+		"/K/Workspaces/Yardaroo/prototype/app/controllers/main.controller.js",
+		"/K/Workspaces/Yardaroo/prototype/app/assets/js/dist/app.js",
+		"/K/Workspaces/Yardaroo/prototype/app/gulpfile.js",
+		"/C/xampp/htdocs/Yardaroo/business/manager.py",
+		"/C/xampp/htdocs/Yardaroo/cookiecutter.json",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/Admin/ControlPanel/home/home.html",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/ngApp/profile/password/default.html",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Managers/ShipperManager.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/ngApp/profile/profile-ctrl.js",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Managers/ProfileManager.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Api/Profile/index.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/Admin/ControlPanel/home/home-ctrl.js",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Api/Shipper/index.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Controllers/ShipperController.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Managers/IManager.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/ngApp/home/home.html",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Models/User.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Models/ShipperGeography.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Models/ShipperServiceType.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Models/ShipperEquipment.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Models/ShipperCarrierProfile.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Models/ShipperCommodities.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Api/Shipper/Index.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/ngApp/home/home-ctrl.js",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Managers/AuthManager.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/Admin/ControlPanel/index.html",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/ngApp/admin-app.js",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Modules/ShipperModule.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Modules/ProfileModule.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Modules/AuthModule.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Enum/UserType.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Enum/Roles.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Application/Config.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Helpers/EventMessages/InsertMessage.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Helpers/EventMessages/RecoverPassword.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Helpers/EventMessages/UpdateMessage.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/ngApp/user-config.js",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/Admin/ControlPanel/index.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/Admin/ControlPanel/json/newUser.json",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/Admin/ControlPanel/shared/navigation.html",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/Admin/auth.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/ngApp/index.html",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Api/Auth/index.php",
+		"/C/xampp/htdocs/ShipperPortal/Eca/Web/index.shtml"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"<current file>",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"echo",
+			"print_r",
+			"SearchController",
+			"HomeController",
+			"\"\n",
+			">\n",
+			"\"></",
+			"Action",
+			"$timeout",
+			"Repository",
+			"getDataTarget",
+			"$_SESSION['User']",
+			"textarea",
+			"_user",
+			"GetUpdateParamString",
+			"selected",
+			"Communications",
+			"technology",
+			"shipperGeographySouth",
+			"\t</",
+			"w-60p",
+			"/* line 345, C:/HLG.ESS/Harris.ESS.Web/Assets/css/hlg-fe-framework/components/forms */",
+			"/* line 345, C:/HLG.ESS/Harris.ESS.Web/Assets/css/hlg-fe-framework/components/forms */\n/* line 345, C:/HLG.ESS/Harris.ESS.Web/Assets/css/hlg-fe-framework/components/forms */\n/* line 345, C:/HLG.ESS/Harris.ESS.Web/Assets/css/hlg-fe-framework/components/forms */",
+			"boolean",
+			"\t\tname=\"shipper_equipment.SmallVehicle\"\n",
+			"$db->next_result",
+			"NavCtrl",
+			"\");\n",
+			"Web",
+			"_privateKey",
+			"Other",
+			"Users",
+			"bower_components",
+			"LEFT JOIN"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"form-control",
+			"form-control ",
+			" ",
+			"",
+			"tinyint(1)",
+			"Notes",
+			"User",
+			"../bower_components",
+			"Left Join"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 118.0
+	},
+	"output.find_results":
+	{
+		"height": 134.0
+	},
+	"pinned_build_system": "",
+	"project": "project.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 254.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
