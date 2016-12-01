@@ -1,0 +1,16 @@
+{
+    "name": "evergrid/komodoapi.server",
+    "description": "Server side app package for KomodoApi",
+    "type": "project",
+    "require": {
+        "slim/slim": "^3.6"
+    },
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Andrew Mitchell",
+            "email": "andy@sociametrix.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
