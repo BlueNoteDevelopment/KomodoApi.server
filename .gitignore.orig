@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+/vendor/
+=======
+>>>>>>> 9cfdbec8aed45cfeed4fbddea143fc5c66c76f92
 
 #ignore thumbnails created by windows
 Thumbs.db
@@ -27,6 +31,9 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+<<<<<<< HEAD
 .env
 .vagrant*/
+=======
 [Vv]endor*/
+>>>>>>> 9cfdbec8aed45cfeed4fbddea143fc5c66c76f92
