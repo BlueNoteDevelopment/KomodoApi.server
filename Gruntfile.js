@@ -1,3 +1,4 @@
+/*jslint node: true */
 module.exports = function(grunt) {
     "use strict";
 
@@ -10,7 +11,7 @@ module.exports = function(grunt) {
             },
             php: {
                 files: ["**/*.php", "!vendor/**/*.php", "!node_modules/**/*.php"],
-                tasks: ["testphp"]
+                tasks: ["testphp","phpcs"]
             }
         },
         jshint: {
@@ -41,11 +42,13 @@ module.exports = function(grunt) {
                 src: ["**/*.php", "!vendor/**/*.php", "!node_modules/**/*.php"]
             },
             options: {
-                bin: "vendor/bin/phpcs",
+                bin: "vendor/bin/phpcbf",
                 standard: "PSR2"
             }
         }
     });
+
+    grunt.loadNpmTasks('grunt-phpcbf');
 
     require("load-grunt-tasks")(grunt);
 
