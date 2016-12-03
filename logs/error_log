@@ -20,3 +20,17 @@
 [Fri Dec 02 03:48:19 2016] [notice] Digest: done
 [Fri Dec 02 03:48:19 2016] [notice] Apache/2.2.15 (Unix) DAV/2 PHP/5.6.28 mod_ssl/2.2.15 OpenSSL/1.0.1e-fips configured -- resuming normal operations
 [Fri Dec 02 03:48:31 2016] [error] [client 192.168.50.1] File does not exist: /vagrant/public/favicon.ico, referer: http://192.168.50.52/
+[Fri Dec 02 04:13:49 2016] [error] [client 192.168.50.1] File does not exist: /vagrant/public/hello
+[Fri Dec 02 04:15:05 2016] [error] [client 192.168.50.1] File does not exist: /vagrant/public/hello
+[Fri Dec 02 04:15:51 2016] [error] [client 192.168.50.1] File does not exist: /vagrant/public/hello
+[Fri Dec 02 04:18:03 2016] [error] [client 192.168.50.1] PHP Parse error:  syntax error, unexpected end of file, expecting ',' or ';' in /vagrant/public/index.php on line 3
+[Fri Dec 02 04:18:06 2016] [error] [client 192.168.50.1] PHP Parse error:  syntax error, unexpected end of file, expecting ',' or ';' in /vagrant/public/index.php on line 3
+[Fri Dec 02 04:18:22 2016] [error] [client 192.168.50.1] PHP Parse error:  syntax error, unexpected end of file, expecting ',' or ';' in /vagrant/public/index.php on line 3
+[Fri Dec 02 04:19:17 2016] [error] [client 192.168.50.1] File does not exist: /vagrant/public/hello
+[Fri Dec 02 04:20:24 2016] [error] [client 192.168.50.1] File does not exist: /vagrant/public/hello
+[Fri Dec 02 04:20:59 2016] [error] [client 192.168.50.1] File does not exist: /vagrant/public/hello
+[Fri Dec 02 04:21:20 2016] [error] [client 192.168.50.1] File does not exist: /vagrant/public/hello
+[Fri Dec 02 04:27:48 2016] [notice] suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
+[Fri Dec 02 04:27:48 2016] [notice] Digest: generating secret for digest authentication ...
+[Fri Dec 02 04:27:48 2016] [notice] Digest: done
+[Fri Dec 02 04:27:48 2016] [notice] Apache/2.2.15 (Unix) DAV/2 PHP/5.6.28 mod_ssl/2.2.15 OpenSSL/1.0.1e-fips configured -- resuming normal operations
