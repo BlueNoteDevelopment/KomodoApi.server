@@ -13,7 +13,7 @@ use Psr\Log\LogLevel;
 
 class Config extends \Spot\Entity
 {
-    protected static $table = "todos";
+    protected static $table = "config";
 
     public static function fields()
     {

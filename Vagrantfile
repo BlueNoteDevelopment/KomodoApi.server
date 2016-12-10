@@ -103,7 +103,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         sudo /etc/init.d/mysqld restart
         sudo /sbin/chkconfig --levels 235 mysqld on
 
-        echo "CREATE DATABASE komodoapi" | mysql -u root
+        echo "CREATE DATABASE komodoapi; CREATE USER 'master'@'192.168.50.52' IDENTIFIED BY 'password'; GRANT ALL PRIVILEGES ON *.* TO 'master'@'192.168.50.52' WITH GRANT OPTION; FLUSH PRIVILEGES;" | mysql -u root
       SHELL
 
       # Stop iptable because it will cause too much confusion

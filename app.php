@@ -19,7 +19,7 @@ require __DIR__ . "/config/middleware.php";
 require __DIR__ . "/config/database.php";
 
 $app->get("/", function ($request, $response, $arguments) {
-  //$this->spot->mapper("App\Config")->migrate();
+  $this->spot->mapper("App\Config")->migrate();
   print "This is Komodo API";
 });
 
