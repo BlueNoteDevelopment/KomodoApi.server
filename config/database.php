@@ -5,6 +5,7 @@ $container = $app->getContainer();
 $container["spot"] = function ($container) {
 
     $config = new \Spot\Config();
+
     $mysql = $config->addConnection("mysql", [
         "dbname" => getenv("DB_NAME"),
         "user" => getenv("DB_USER"),

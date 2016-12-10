@@ -10,99 +10,106 @@ system("
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "puppetlabs/centos-6.6-64-nocm"
-  config.vm.network "private_network", ip: "192.168.50.52"
-  config.vm.box_download_insecure = true
+  config.vm.define "web" do |web|
+      web.vm.box = "puppetlabs/centos-6.6-64-nocm"
+      web.vm.network "private_network", ip: "192.168.50.52"
+      web.vm.box_download_insecure = true
 
-  # Configure cached packages to be shared between instances of the same base box.
-  # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
-  if Vagrant.has_plugin?("vagrant-cachier")
-      config.cache.scope = :box
+      web.vm.provider :virtualbox do |v|
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        v.customize ["modifyvm", :id, "--memory", 512]
+        v.customize ["modifyvm", :id, "--name", "web"]
+      end
+
+      # Configure cached packages to be shared between instances of the same base box.
+      # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
+      if Vagrant.has_plugin?("vagrant-cachier")
+          web.cache.scope = :box
+      end
+
+      # Make sure logs folder will be writable for Apache
+      web.vm.synced_folder "logs", "/vagrant/logs", owner: 48, group: 48
+
+      # Install all needed packages
+      web.vm.provision "shell", name: "rpm", inline: <<-SHELL
+        rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
+        rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+      SHELL
+
+      # PHP and modules
+      web.vm.provision "shell", name: "php", inline: <<-SHELL
+        sudo yum -y install php56w php56w-opcache
+        sudo yum -y install php56w-pdo
+        sudo yum -y install php56w-mcrypt
+        sudo yum -y install php56w-mysqlnd
+        sudo yum -y install mod_ssl
+        sudo yum -y install php56w-xmlwriter
+      SHELL
+
+      # Use the provided example environment
+      web.vm.provision "shell", name: "environment", inline: <<-SHELL
+        cd /vagrant && cp .env.example .env
+      SHELL
+
+      # Update Apache config and restart
+      web.vm.provision "shell", name: "apache", inline: <<-'SHELL'
+        sed -i -e "s/DocumentRoot \"\/var\/www\/html\"/DocumentRoot \/vagrant\/public/" /etc/httpd/conf/httpd.conf
+        # If you prefer Slim app to be in subfolder comment above and uncomment below
+        #echo "Alias /foobar/ /vagrant/public/" >> /etc/httpd/conf/httpd.conf
+        echo "EnableSendfile off" >> /etc/httpd/conf/httpd.conf
+        sed -i -e "s/ErrorLog logs\/error_log/ErrorLog \/vagrant\/logs\/error_log/" /etc/httpd/conf/httpd.conf
+        sed -i -e "s/CustomLog logs\/access_log/CustomLog \/vagrant\/logs\/access_log/" /etc/httpd/conf/httpd.conf
+        sed -i -e "s/AllowOverride None/AllowOverride All/" /etc/httpd/conf/httpd.conf
+
+        sudo /etc/init.d/httpd restart
+        sudo /sbin/chkconfig --levels 235 httpd on
+
+        # Make sure Apache also runs after vagrant reload
+        echo "# Start Apache after /vagrant is mounted" > /etc/init/httpd.conf
+        echo "start on vagrant-mounted" >> /etc/init/httpd.conf
+        echo "exec /etc/init.d/httpd restart" >> /etc/init/httpd.conf
+      SHELL
+
+      # Stop iptable because it will cause too much confusion
+      web.vm.provision "shell", name: "iptables", inline: <<-SHELL
+        sudo /etc/init.d/iptables stop
+        sudo /sbin/chkconfig iptables off
+      SHELL
+
+      # Install Grunt and npm dependencies
+      #config.vm.provision "shell", name: "grunt", inline: <<-SHELL
+      #  yum -y install npm
+      #  npm install -g grunt-cli
+      #  cd /vagrant && npm install
+      #SHELL
   end
 
-  # Make sure logs folder will be writable for Apache
-  config.vm.synced_folder "logs", "/vagrant/logs", owner: 48, group: 48
+  config.vm.define "db" do |db|
+      db.vm.box = "puppetlabs/centos-6.6-64-nocm"
+      db.vm.network "private_network", ip: "192.168.50.53"
+      db.vm.network "forwarded_port",guest:3306, host:3306
+      db.vm.box_download_insecure = true
 
-  # Install all needed packages
-  config.vm.provision "shell", name: "rpm", inline: <<-SHELL
-    rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
-    rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-  SHELL
+      db.vm.provider :virtualbox do |v|
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        v.customize ["modifyvm", :id, "--memory", 512]
+        v.customize ["modifyvm", :id, "--name", "db"]
+      end
 
-  # PHP and modules
-  config.vm.provision "shell", name: "php", inline: <<-SHELL
-    sudo yum -y install php56w php56w-opcache
-    sudo yum -y install php56w-pdo
-    sudo yum -y install php56w-mcrypt
-    sudo yum -y install php56w-mysqlnd
-    sudo yum -y install mod_ssl
-    sudo yum -y install php56w-xmlwriter
-  SHELL
+      # MySQL
+      db.vm.provision "shell", name: "mysql", inline: <<-SHELL
+        sudo yum -y install mysql
+        sudo yum -y install mysql-server
+        sudo /etc/init.d/mysqld restart
+        sudo /sbin/chkconfig --levels 235 mysqld on
 
-  # Use the provided example environment
-  config.vm.provision "shell", name: "environment", inline: <<-SHELL
-    cd /vagrant && cp .env.example .env
-  SHELL
+        echo "CREATE DATABASE komodoapi; CREATE USER 'master'@'192.168.50.52' IDENTIFIED BY 'password'; GRANT ALL PRIVILEGES ON *.* TO 'master'@'192.168.50.52' WITH GRANT OPTION; FLUSH PRIVILEGES;" | mysql -u root
+      SHELL
 
-  # Install Composer and dependencies
-  config.vm.provision "shell", name: "composer", inline: <<-SHELL
-    curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
-    cd /vagrant && /usr/local/bin/composer install
-  SHELL
-
-  # MySQL
-  config.vm.provision "shell", name: "mysql", inline: <<-SHELL
-    sudo yum -y install mysql
-    sudo yum -y install mysql-server
-    sudo /etc/init.d/mysqld restart
-    sudo /sbin/chkconfig --levels 235 mysqld on
-
-    echo "CREATE DATABASE komodoapi" | mysql -u root
-  SHELL
-
-  # Update Apache config and restart
-  config.vm.provision "shell", name: "apache", inline: <<-'SHELL'
-    sed -i -e "s/DocumentRoot \"\/var\/www\/html\"/DocumentRoot \/vagrant\/public/" /etc/httpd/conf/httpd.conf
-    # If you prefer Slim app to be in subfolder comment above and uncomment below
-    #echo "Alias /foobar/ /vagrant/public/" >> /etc/httpd/conf/httpd.conf
-    echo "EnableSendfile off" >> /etc/httpd/conf/httpd.conf
-    sed -i -e "s/ErrorLog logs\/error_log/ErrorLog \/vagrant\/logs\/error_log/" /etc/httpd/conf/httpd.conf
-    sed -i -e "s/CustomLog logs\/access_log/CustomLog \/vagrant\/logs\/access_log/" /etc/httpd/conf/httpd.conf
-    sed -i -e "s/AllowOverride None/AllowOverride All/" /etc/httpd/conf/httpd.conf
-
-    sudo /etc/init.d/httpd restart
-    sudo /sbin/chkconfig --levels 235 httpd on
-
-    # Make sure Apache also runs after vagrant reload
-    echo "# Start Apache after /vagrant is mounted" > /etc/init/httpd.conf
-    echo "start on vagrant-mounted" >> /etc/init/httpd.conf
-    echo "exec /etc/init.d/httpd restart" >> /etc/init/httpd.conf
-  SHELL
-
-  # Stop iptable because it will cause too much confusion
-  config.vm.provision "shell", name: "iptables", inline: <<-SHELL
-    sudo /etc/init.d/iptables stop
-    sudo /sbin/chkconfig iptables off
-  SHELL
-
-  # Install Grunt and npm dependencies
-  #config.vm.provision "shell", name: "grunt", inline: <<-SHELL
-  #  yum -y install npm
-  #  npm install -g grunt-cli
-  #  cd /vagrant && npm install
-  #SHELL
-
-  config.vm.post_up_message = <<MESSAGE
-
-  ███████╗██╗     ██╗███╗   ███╗██████╗
-  ██╔════╝██║     ██║████╗ ████║╚════██╗
-  ███████╗██║     ██║██╔████╔██║ █████╔╝
-  ╚════██║██║     ██║██║╚██╔╝██║ ╚═══██╗
-  ███████║███████╗██║██║ ╚═╝ ██║██████╔╝
-  ╚══════╝╚══════╝╚═╝╚═╝     ╚═╝╚═════╝
-
- You can access me at: http://192.168.50.52/
-
-MESSAGE
-
+      # Stop iptable because it will cause too much confusion
+      db.vm.provision "shell", name: "iptables", inline: <<-SHELL
+        sudo /etc/init.d/iptables stop
+        sudo /sbin/chkconfig iptables off
+      SHELL
+  end
 end
