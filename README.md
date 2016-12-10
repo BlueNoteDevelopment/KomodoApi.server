@@ -44,3 +44,7 @@ App\Token Object
         )
 )
 ```
+# NOTE
+You may need to mess with self-signed certs in Chrome to get this to work (using Postman).  Follow the instructions here if you get an error:
+[Add SLL Cert To Chrome](http://blog.getpostman.com/2014/01/28/using-self-signed-certificates-with-postman/)
+
