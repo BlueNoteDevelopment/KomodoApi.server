@@ -3,9 +3,29 @@
     "description": "Server side app package for KomodoApi",
     "type": "project",
     "require": {
-        "slim/slim": "^3.6"
+        "slim/slim": "^3.0",
+        "monolog/monolog": "^1.17",
+        "vlucas/phpdotenv": "^2.0",
+        "symfony/console": "^2.7",
+        "vlucas/spot2": "^2.1",
+        "tuupola/slim-jwt-auth": "^2.0",
+        "tuupola/slim-basic-auth": "^2.0",
+        "league/fractal": "^0.13.0",
+        "paragonie/random_compat": "^1.2",
+        "tuupola/cors-middleware": "^0.5.0",
+        "micheh/psr7-cache": "^0.5.0",
+        "gofabian/negotiation-middleware": "^0.1.2",
+        "tuupola/base62": "^0.5.0"
     },
     "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "lib/App/",
+            "Doctrine\\DBAL\\Logging\\": "lib/Doctrine/DBAL/Logging/",
+            "Exception\\": "lib/Exception/",
+            "Slim\\Handlers\\": "lib/Slim/Handlers/"
+        }
     },
     "license": "LGPL-3.0+",
     "authors": [
@@ -13,6 +33,5 @@
             "name": "Andrew Mitchell",
             "email": "andy@sociametrix.com"
         }
-    ],
-    "minimum-stability": "dev"
+    ]
 }
