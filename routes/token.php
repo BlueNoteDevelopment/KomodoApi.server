@@ -46,9 +46,8 @@ $app->post("/auth/token", function ($request, $response, $arguments) {
 
 /* This is just for debugging, not usefull in real life. */
 $app->get("/auth/dump", function ($request, $response, $arguments) {
-    print_r($this->token);
-});
-
-$app->post("/auth/dump", function ($request, $response, $arguments) {
-    print_r($this->token);
+    $data["message"] = $this->token;
+    return $response->withStatus(201)
+        ->withHeader("Content-Type", "application/json")
+        ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 });
