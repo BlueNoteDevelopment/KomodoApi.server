@@ -12,7 +12,7 @@ $container = $app->getContainer();
 
 $container["HttpBasicAuthentication"] = function ($container) {
     return new HttpBasicAuthentication([
-        "path" => "/token",
+        "path" => "/auth/token",
         "relaxed" => ["192.168.50.52"],
         "users" => [
             "test" => "test"
@@ -27,7 +27,7 @@ $container["token"] = function ($container) {
 $container["JwtAuthentication"] = function ($container) {
     return new JwtAuthentication([
         "path" => "/",
-        "passthrough" => ["/token"],
+        "passthrough" => ["/auth/token"],
         "secret" => getenv("JWT_SECRET"),
         "logger" => $container["logger"],
         "relaxed" => ["192.168.50.52"],
@@ -49,7 +49,7 @@ $container["Cors"] = function ($container) {
         "logger" => $container["logger"],
         "origin" => ["*"],
         "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-        "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since"],
+        "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since","Content-Type"],
         "headers.expose" => ["Authorization", "Etag"],
         "credentials" => true,
         "cache" => 60,
