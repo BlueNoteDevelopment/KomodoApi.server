@@ -24,5 +24,6 @@ $app->get("/", function ($request, $response, $arguments) {
 });
 
 require __DIR__ . "/routes/token.php";
+require __DIR__ . "/routes/upload.php";
 
 $app->run();
