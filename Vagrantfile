@@ -11,7 +11,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "web" do |web|
-      web.vm.box = "puppetlabs/centos-6.6-64-nocm"
+      web.vm.box = "puppetlabs/centos-7.0-64-nocm"
       web.vm.network "private_network", ip: "192.168.50.52"
       web.vm.box_download_insecure = true
 
@@ -32,18 +32,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       # Install all needed packages
       web.vm.provision "shell", name: "rpm", inline: <<-SHELL
-        rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
-        rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+        rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
       SHELL
 
       # PHP and modules
       web.vm.provision "shell", name: "php", inline: <<-SHELL
-        sudo yum -y install php56w php56w-opcache
-        sudo yum -y install php56w-pdo
-        sudo yum -y install php56w-mcrypt
-        sudo yum -y install php56w-mysqlnd
+        sudo yum -y install php70w php70w-opcache
+        sudo yum -y install php70w-bcmath
+        sudo yum -y install php70w-cli
+        sudo yum -y install php70w-imap
+        sudo yum -y install php70w-common
+        sudo yum -y install php70w-pdo
+        sudo yum -y install php70w-odbc
+        sudo yum -y install php70w-mcrypt
+        sudo yum -y install php70w-mysqlnd
         sudo yum -y install mod_ssl
-        sudo yum -y install php56w-xmlwriter
+        sudo yum -y install php70w-xmlrpc
+        sudo yum -y install vim
       SHELL
 
       # Use the provided example environment
@@ -53,27 +59,37 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       # Update Apache config and restart
       web.vm.provision "shell", name: "apache", inline: <<-'SHELL'
-        sed -i -e "s/DocumentRoot \"\/var\/www\/html\"/DocumentRoot \/vagrant\/public/" /etc/httpd/conf/httpd.conf
-        # If you prefer Slim app to be in subfolder comment above and uncomment below
-        #echo "Alias /foobar/ /vagrant/public/" >> /etc/httpd/conf/httpd.conf
-        echo "EnableSendfile off" >> /etc/httpd/conf/httpd.conf
-        sed -i -e "s/ErrorLog logs\/error_log/ErrorLog \/vagrant\/logs\/error_log/" /etc/httpd/conf/httpd.conf
-        sed -i -e "s/CustomLog logs\/access_log/CustomLog \/vagrant\/logs\/access_log/" /etc/httpd/conf/httpd.conf
-        sed -i -e "s/AllowOverride None/AllowOverride All/" /etc/httpd/conf/httpd.conf
+        # Set DocumentRoot in Apache config file to the project files where it is shared in /vagrant
+        echo "Setting Apache's DocumentRoot"
+        sed -i 's/^DocumentRoot .*/DocumentRoot "\/vagrant\/public"/g' /etc/httpd/conf/httpd.conf
+        sed -i 's/\/var\/www\/html/\/vagrant\/public/g' /etc/httpd/conf/httpd.conf
 
-        sudo /etc/init.d/httpd restart
-        sudo /sbin/chkconfig --levels 235 httpd on
+        # Set ServerName in Apache config file to localhost
+        echo "Setting Apache's ServerName"
+        sed -i 's/^#ServerName .*/ServerName localhost/g' /etc/httpd/conf/httpd.conf
 
-        # Make sure Apache also runs after vagrant reload
-        echo "# Start Apache after /vagrant is mounted" > /etc/init/httpd.conf
-        echo "start on vagrant-mounted" >> /etc/init/httpd.conf
-        echo "exec /etc/init.d/httpd restart" >> /etc/init/httpd.conf
+        # Set AllowOverride in all directory settings in Apache config to enable .htaccess
+        echo "Setting Apache's AllowOverride"
+        sed -i 's/^\s*AllowOverride .*/AllowOverride All/g' /etc/httpd/conf/httpd.conf
+
+        # Disable apache sendfile to fix "cache" when serving static files
+        echo "Disable Apache's sendfile"
+        sed -i 's/^#EnableSendfile off/EnableSendfile off/g' /etc/httpd/conf/httpd.conf
+        sed -i 's/^EnableSendfile on/EnableSendfile off/g' /etc/httpd/conf/httpd.conf
+
+        # Register Apache as a service
+        echo "Registering Apache as a service"
+        systemctl enable httpd.service
+
+        # Start Apache service
+        echo "Starting Apache Service"
+        systemctl restart httpd.service
       SHELL
 
       # Stop iptable because it will cause too much confusion
       web.vm.provision "shell", name: "iptables", inline: <<-SHELL
-        sudo /etc/init.d/iptables stop
-        sudo /sbin/chkconfig iptables off
+        sudo systemctl stop firewalld.service
+        sudo systemctl disable firewalld.service
       SHELL
 
       # Install Grunt and npm dependencies
@@ -85,7 +101,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "db" do |db|
-      db.vm.box = "puppetlabs/centos-6.6-64-nocm"
+      db.vm.box = "puppetlabs/centos-7.0-64-nocm"
       db.vm.network "private_network", ip: "192.168.50.53"
       db.vm.network "forwarded_port",guest:3306, host:3306
       db.vm.box_download_insecure = true
@@ -98,18 +114,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       # MySQL
       db.vm.provision "shell", name: "mysql", inline: <<-SHELL
-        sudo yum -y install mysql
-        sudo yum -y install mysql-server
-        sudo /etc/init.d/mysqld restart
-        sudo /sbin/chkconfig --levels 235 mysqld on
+        sudo yum -y install mariadb-server
+        sudo systemctl enable mariadb
+        sudo systemctl start mariadb
 
-        echo "CREATE DATABASE komodoapi; CREATE USER 'master'@'192.168.50.52' IDENTIFIED BY 'password'; GRANT ALL PRIVILEGES ON *.* TO 'master'@'192.168.50.52' WITH GRANT OPTION; FLUSH PRIVILEGES;" | mysql -u root
+        echo "CREATE DATABASE komodoapi; CREATE USER 'sa'@'localhost' IDENTIFIED BY 'P@ssword123'; CREATE USER 'sa'@'%' IDENTIFIED BY 'P@ssword123'; GRANT ALL PRIVILEGES ON *.* TO 'sa'@'localhost' WITH GRANT OPTION; GRANT ALL PRIVILEGES ON *.* TO 'sa'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;" | mysql -u root
+
+        mysql -uroot
+        sudo mysql -e "UPDATE mysql.user SET Password = PASSWORD('P@ssword123') WHERE User = 'root'"
+        sudo mysql -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')"
+        sudo mysql -e "DROP USER ''@'localhost'"
+        sudo mysql -e "DROP USER ''@'$(hostname)'"
+        sudo mysql -e "DROP DATABASE test"
+        sudo mysql -e "FLUSH PRIVILEGES"
       SHELL
 
       # Stop iptable because it will cause too much confusion
       db.vm.provision "shell", name: "iptables", inline: <<-SHELL
-        sudo /etc/init.d/iptables stop
-        sudo /sbin/chkconfig iptables off
+        sudo systemctl stop firewalld.service
+        sudo systemctl disable firewalld.service
       SHELL
   end
 end
