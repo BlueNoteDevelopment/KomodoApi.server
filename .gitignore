@@ -34,3 +34,4 @@ _ReSharper*/
 logs/access_log
 logs/error_log
 composer.lock
+/nbproject/private/

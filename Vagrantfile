@@ -26,9 +26,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       if Vagrant.has_plugin?("vagrant-cachier")
           web.cache.scope = :box
       end
-
+      
+      config.vm.synced_folder ".", "/vagrant", type: "nfs"
+      
       # Make sure logs folder will be writable for Apache
       web.vm.synced_folder "logs", "/vagrant/logs", owner: 48, group: 48
+      
+
 
       # Install all needed packages
       web.vm.provision "shell", name: "rpm", inline: <<-SHELL
