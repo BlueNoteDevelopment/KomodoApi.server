@@ -1,6 +1,7 @@
 <?php
 
 use App\Token;
+use Middleware\ClientResolver;
 
 use Slim\Middleware\JwtAuthentication;
 use Slim\Middleware\HttpBasicAuthentication;
@@ -70,10 +71,18 @@ $container["Negotiation"] = function ($container) {
     ]);
 };
 
+$container["ClientResolver"] = function ($container) {
+    
+    return new Middleware\ClientResolver($container,$_SERVER['HTTP_HOST']);
+    
+};
+
+$app->add("ClientResolver");
 $app->add("HttpBasicAuthentication");
 $app->add("JwtAuthentication");
 $app->add("Cors");
 $app->add("Negotiation");
+
 
 $container["cache"] = function ($container) {
     return new CacheUtil;

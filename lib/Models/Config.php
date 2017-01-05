@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Models;
 
 use Spot\EntityInterface;
 use Spot\MapperInterface;
@@ -8,8 +8,6 @@ use Spot\EventEmitter;
 
 use Tuupola\Base62;
 
-use Ramsey\Uuid\Uuid;
-use Psr\Log\LogLevel;
 
 class Config extends \Spot\Entity
 {

@@ -16,10 +16,12 @@ $app = new \Slim\App([
 require __DIR__ . "/config/logger.php";
 require __DIR__ . "/config/handlers.php";
 require __DIR__ . "/config/middleware.php";
+
+//need to get client info prior to setting up database container
 require __DIR__ . "/config/database.php";
 
 $app->get("/", function ($request, $response, $arguments) {
-  $this->spot->mapper("App\Config")->migrate();
+  $this->spot->mapper("Models\Config")->migrate();
   print "This is Komodo API";
 });
 
