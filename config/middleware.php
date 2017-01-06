@@ -77,6 +77,13 @@ $container["ClientResolver"] = function ($container) {
     
 };
 
+$container["DBMigration"] = function ($container) {
+    
+    return new Middleware\DBMigration($container);
+    
+};
+
+$app->add("DBMigration");
 $app->add("ClientResolver");
 $app->add("HttpBasicAuthentication");
 $app->add("JwtAuthentication");

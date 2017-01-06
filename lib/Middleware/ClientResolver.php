@@ -32,10 +32,10 @@ class ClientResolver {
         //TODO: write a module to query system database to confirm exisitance, and return user/pwd
         //
         
-        $this->container['clientinfo'] = (object) array('database' => $ci->get_db_name(),
+        $this->app_container['clientinfo'] = (object) array('database' => $ci->get_db_name(),
             'clientid' => $ci->get_client_id(),
-            'user' => '',
-            'password' => '');
+            'user' => $ci->get_client_id() . '_root',
+            'password' => $ci->get_client_id() . '_1@2#API');
         
         //move on
         

@@ -24,7 +24,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "lib/App/",
-            "Models\\": "lib/Models/",
+            "App\\Models\\": "lib/App/Models/",
             "Middleware\\": "lib/Middleware/",
             "Doctrine\\DBAL\\Logging\\": "lib/Doctrine/DBAL/Logging/",
             "Exception\\": "lib/Exception/",
