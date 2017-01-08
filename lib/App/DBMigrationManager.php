@@ -29,7 +29,7 @@ class DBMigrationManager {
             throw new Exception('Db Context not supplied');
         }
 
-        $v = $this->locator->mapper('App\Models\Migration')->all()->where(['Version >=' => $this->version]);
+        $v = $this->locator->mapper('App\Models\Migration')->all()->where(['version >=' => $this->version]);
 
 
         if ($v->count()===0){
