@@ -4,22 +4,22 @@ namespace App\Models;
 
 class EventLog extends \Spot\Entity{
     
-    protected static $table = "eventlog";
+    protected static $table = "EventLog";
     
     public static function fields()
     {
         return [
-            "id" => ["type" => "integer", "unsigned" => true, "primary" => true, "autoincrement" => true],
-            "collectionid" => ["type" => "integer", "unsigned" => true, "index" => true],
-            "log_name" => ["type" => "string", "length" => 255, "value"=> 0],
-            "eventdatetime_utc"   => ["type" => "datetime", "value" => new \DateTime(),"index" => "event"],
-            "source" => ["type" => "string", "length" => 255],
-            "ip" => ["type" => "string", "length" => 255],
-            "event_code" => ["type" => "string", "length" => 25, "value"=> 0,"index" => "event"],
-            "loginid" => ["type" => "integer", "unsigned" => true],
-            "message" => ["type" => "string", "length" => 1048],
-            "level" => ["type" => "integer", "unsigned" => true, "index" => true],
-            "object_data" => ["type" => "string", "length" => 5000]        ];
+            "Id" => ["type" => "integer", "unsigned" => true, "primary" => true, "autoincrement" => true],
+            "CollectionId" => ["type" => "integer", "unsigned" => true, "index" => true],
+            "LogName" => ["type" => "string", "length" => 255, "value"=> 0],
+            "EventDatetimeUtc"   => ["type" => "datetime", "value" => new \DateTime(),"index" => "event"],
+            "Source" => ["type" => "string", "length" => 255],
+            "Ip" => ["type" => "string", "length" => 255],
+            "EventCode" => ["type" => "string", "length" => 25, "value"=> 0,"index" => "event"],
+            "LoginId" => ["type" => "integer", "unsigned" => true],
+            "Message" => ["type" => "string", "length" => 1048],
+            "Level" => ["type" => "integer", "unsigned" => true, "index" => true],
+            "ObjectData" => ["type" => "string", "length" => 5000]        ];
     }
     
     public function timestamp()

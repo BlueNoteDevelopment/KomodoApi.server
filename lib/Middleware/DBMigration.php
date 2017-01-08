@@ -27,7 +27,6 @@ class DBMigration {
         $db = new \App\DBMigrationManager($this->app_container['spot'],$this->app_container['version']);
         
         $db->migrate();
-        
         //move on
         
         return $next($request, $response);

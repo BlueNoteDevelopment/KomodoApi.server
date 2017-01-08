@@ -23,25 +23,39 @@ $app->post("/auth/token", function ($request, $response, $arguments) {
     $now = new DateTime();
     $future = new DateTime("now +24 hours");
     $server = $request->getServerParams();
-
+    
     $jti = Base62::encode(random_bytes(16));
+    
+    //run authentcation function
+    $isAuth = App\Authentication::authenticateUser($server["PHP_AUTH_USER"], $server["PHP_AUTH_PW"], getenv("PWD_SECRET"),$this->repository);
+    //if OK then return token else 403
+    
+    if($isAuth){
+        $payload = [
+            "iat" => $now->getTimeStamp(),
+            "exp" => $future->getTimeStamp(),
+            "jti" => $jti,
+            "sub" => $server["PHP_AUTH_USER"],
+            "scope" => $scopes
+        ];
 
-    $payload = [
-        "iat" => $now->getTimeStamp(),
-        "exp" => $future->getTimeStamp(),
-        "jti" => $jti,
-        "sub" => $server["PHP_AUTH_USER"],
-        "scope" => $scopes
-    ];
+        $secret = getenv("JWT_SECRET");
+        $token = JWT::encode($payload, $secret, "HS256");
+        $data["status"] = "ok";
+        $data["token"] = $token;
 
-    $secret = getenv("JWT_SECRET");
-    $token = JWT::encode($payload, $secret, "HS256");
-    $data["status"] = "ok";
-    $data["token"] = $token;
+        return $response->withStatus(201)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));    
+    }else{
+        $error["error"] = "Invalid User";
+        $error["code"] = "403";
+        
+        $response->withStatus(403)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($error, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));   
+    }
 
-    return $response->withStatus(201)
-        ->withHeader("Content-Type", "application/json")
-        ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 });
 
 /* This is just for debugging, not usefull in real life. */
