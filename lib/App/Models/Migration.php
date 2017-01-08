@@ -9,17 +9,17 @@
 namespace App\Models;
 
 class Migration extends \Spot\Entity{
-    
-    protected static $table = "Migrations";
-    
+
+    protected static $table = "migration";
+
     public static function fields()
     {
         return [
-            "Id" => ["type" => "integer", "unsigned" => true, "primary" => true, "autoincrement" => true],
-            "Version" => ["type" => "integer", "unsigned" => true,'default' => 0, "index" => true]    ];
+            "id" => ["type" => "integer", "unsigned" => true, "primary" => true, "autoincrement" => true],
+            "version" => ["type" => "integer", "unsigned" => true,'default' => 0, "index" => true]    ];
     }
-    
-    
+
+
 }
 
 
