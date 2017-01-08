@@ -16,7 +16,7 @@ namespace App;
 class Authentication {
     //put your code here
     
-    static function authenticateUser($user,$password,$secretKey,$repository){
+    static function authenticateUser($user,$password,$repository){
         
         $usermap = $repository->UserAccounts();
         $a = password_hash($password,PASSWORD_BCRYPT);

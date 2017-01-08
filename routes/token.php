@@ -27,7 +27,7 @@ $app->post("/auth/token", function ($request, $response, $arguments) {
     $jti = Base62::encode(random_bytes(16));
     
     //run authentcation function
-    $isAuth = App\Authentication::authenticateUser($server["PHP_AUTH_USER"], $server["PHP_AUTH_PW"], getenv("PWD_SECRET"),$this->repository);
+    $isAuth = App\Authentication::authenticateUser($server["PHP_AUTH_USER"], $server["PHP_AUTH_PW"],$this->repository);
     //if OK then return token else 403
     
     if($isAuth){
