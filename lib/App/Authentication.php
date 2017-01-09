@@ -21,17 +21,23 @@ class Authentication {
         $usermap = $repository->UserAccounts();
         $a = password_hash($password,PASSWORD_BCRYPT);
         
-        $u = $usermap->all()->where(["UserAccountName =" => $user, "IsActive =" =>true , "IsLocked =" =>false ])->execute();
+        $u = $usermap->all()->where(["UserAccountName =" => $user, "IsActive =" =>true ])->execute();
         
         if($u->count() === 0){
-            return false;
+            throw new \Exception\NotFoundException("User Does Not Exist");
+            //return false;
         }else{
+            if($u[0]->IsLocked){
+                throw new \Exception\ForbiddenException("User Account is Locked");
+            }
+            
             //verify password
             $result  =  password_verify($password,$u[0]->EncryptedPassword);
             if($result){
                 return true;
             }else{
-                return false;
+                throw new \Exception\ForbiddenException("Authentication Failed");
+                //return false;
             }
         }
     }
