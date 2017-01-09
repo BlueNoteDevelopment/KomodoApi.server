@@ -24,14 +24,20 @@ class Authentication {
         $u = $usermap->all()->where(["user_account_name =" => $user, "is_active =" =>true , "is_locked =" =>false ])->execute();
 
         if($u->count() === 0){
-            return false;
+            throw new \Exception\NotFoundException("User Does Not Exist");
+            //return false;
         }else{
+            if($u[0]->IsLocked){
+                throw new \Exception\ForbiddenException("User Account is Locked");
+            }
+            
             //verify password
             $result  =  password_verify($password,$u[0]->encrypted_password);
             if($result){
                 return true;
             }else{
-                return false;
+                throw new \Exception\ForbiddenException("Authentication Failed");
+                //return false;
             }
         }
     }

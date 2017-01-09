@@ -14,10 +14,7 @@ $container = $app->getContainer();
 $container["HttpBasicAuthentication"] = function ($container) {
     return new HttpBasicAuthentication([
         "path" => "/auth/token",
-        "relaxed" => ["192.168.50.52"],
-        "users" => [
-            "test" => "test"
-        ]
+        "relaxed" => ["192.168.50.52"]
     ]);
 };
 
@@ -85,7 +82,7 @@ $container["DBMigration"] = function ($container) {
 
 $app->add("DBMigration");
 $app->add("ClientResolver");
-$app->add("HttpBasicAuthentication");
+//$app->add("HttpBasicAuthentication");
 $app->add("JwtAuthentication");
 $app->add("Cors");
 $app->add("Negotiation");

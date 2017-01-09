@@ -1,8 +1,8 @@
 <?php
 
-use Ramsey\Uuid\Uuid;
 use Firebase\JWT\JWT;
 use Tuupola\Base62;
+
 
 $app->post("/auth/token", function ($request, $response, $arguments) {
     $requested_scopes = $request->getParsedBody();
@@ -49,9 +49,9 @@ $app->post("/auth/token", function ($request, $response, $arguments) {
             ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));    
     }else{
         $error["error"] = "Invalid User";
-        $error["code"] = "403";
+        $error["code"] = "500";
         
-        $response->withStatus(403)
+        $response->withStatus(500)
             ->withHeader("Content-Type", "application/json")
             ->write(json_encode($error, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));   
     }
