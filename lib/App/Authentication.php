@@ -15,14 +15,14 @@ namespace App;
  */
 class Authentication {
     //put your code here
-    
+
     static function authenticateUser($user,$password,$repository){
-        
+
         $usermap = $repository->UserAccounts();
         $a = password_hash($password,PASSWORD_BCRYPT);
-        
-        $u = $usermap->all()->where(["UserAccountName =" => $user, "IsActive =" =>true ])->execute();
-        
+
+        $u = $usermap->all()->where(["user_account_name =" => $user, "is_active =" =>true , "is_locked =" =>false ])->execute();
+
         if($u->count() === 0){
             throw new \Exception\NotFoundException("User Does Not Exist");
             //return false;
@@ -32,7 +32,7 @@ class Authentication {
             }
             
             //verify password
-            $result  =  password_verify($password,$u[0]->EncryptedPassword);
+            $result  =  password_verify($password,$u[0]->encrypted_password);
             if($result){
                 return true;
             }else{
@@ -41,6 +41,6 @@ class Authentication {
             }
         }
     }
-    
-    
+
+
 }
