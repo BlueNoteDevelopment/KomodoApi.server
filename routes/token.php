@@ -1,6 +1,5 @@
 <?php
 
-use Ramsey\Uuid\Uuid;
 use Firebase\JWT\JWT;
 use Tuupola\Base62;
 
