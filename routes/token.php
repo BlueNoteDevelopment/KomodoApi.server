@@ -27,15 +27,15 @@ $app->post("/auth/token", function ($request, $response, $arguments) {
     $jti = Base62::encode(random_bytes(16));
     
     //run authentcation function
-    $isAuth = App\Authentication::authenticateUser($server["PHP_AUTH_USER"], $server["PHP_AUTH_PW"],$this->repository);
+    $authResult = App\Authentication::authenticateUser($server["PHP_AUTH_USER"], $server["PHP_AUTH_PW"],$this->repository);
     //if OK then return token else 403
     
-    if($isAuth){
+    if($authResult->result){
         $payload = [
             "iat" => $now->getTimeStamp(),
             "exp" => $future->getTimeStamp(),
             "jti" => $jti,
-            "sub" => $server["PHP_AUTH_USER"],
+            "sub" => $authResult->userName,
             "scope" => $scopes
         ];
 

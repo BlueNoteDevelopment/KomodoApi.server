@@ -21,21 +21,42 @@ class Authentication {
         $usermap = $repository->UserAccounts();
         $a = password_hash($password,PASSWORD_BCRYPT);
 
-        $u = $usermap->all()->where(["user_account_name =" => $user, "is_active =" =>true , "is_locked =" =>false ])->execute();
+        $u = $usermap->all()->where(["user_account_name =" => $user, "is_active =" =>true ])->execute();
 
         if($u->count() === 0){
             throw new \Exception\NotFoundException("User Does Not Exist");
             //return false;
         }else{
-            if($u[0]->IsLocked){
+            if($u[0]->is_locked){
                 throw new \Exception\ForbiddenException("User Account is Locked");
             }
             
+            $u[0]->last_login_datetime = new \DateTime();
             //verify password
             $result  =  password_verify($password,$u[0]->encrypted_password);
             if($result){
-                return true;
+                
+                $u[0]->failed_attempts =0;
+                $usermap->save($u[0]);
+                
+                
+                $auth = new AuthenticationResult();
+                $auth->result = true;
+                $auth->userName = $u[0]->user_name;
+                $auth->userGuid = $u[0]->user_token_guid;
+                $auth->userId =  $u[0]->id;
+                
+                return $auth;
             }else{
+                
+                $u[0]->failed_attempts ++;
+                
+                if($u[0]->failed_attempts > 3){
+                    $u[0]->is_locked=true;
+                }
+                
+                $usermap->save($u[0]);
+                
                 throw new \Exception\ForbiddenException("Authentication Failed");
                 //return false;
             }
