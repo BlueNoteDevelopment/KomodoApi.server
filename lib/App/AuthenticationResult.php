@@ -9,8 +9,9 @@ namespace App;
  */
 class AuthenticationResult {
     public $result = false;
-    public $userName = '';
-    public $userGuid = '';
-    public $userId = 0;
-
+    public $authName = '';
+    public $guid = '';
+    public $id = 0;
+    
+    public $authType = 'USER';  //OR SERVER
 }

@@ -41,9 +41,9 @@ class Authentication {
                                
                 $auth = new AuthenticationResult();
                 $auth->result = true;
-                $auth->userName = $u[0]->user_account_name;
-                $auth->userGuid = $u[0]->user_token_guid;
-                $auth->userId =  $u[0]->id;
+                $auth->authName = $u[0]->user_account_name;
+                $auth->guid = $u[0]->user_token_guid;
+                $auth->id =  $u[0]->id;
                 
                 return $auth;
             }else{

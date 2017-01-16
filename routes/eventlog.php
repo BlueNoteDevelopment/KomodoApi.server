@@ -20,7 +20,7 @@ $app->map(['POST','PUT'],"/api/eventlog", function ($request, $response, $argume
     $evt->source = (isset($evtdata['computername'])) ?  $evtdata['computername'] : '';
     $evt->ip = $_SERVER['REMOTE_ADDR'];
     $evt->event_code = (isset($evtdata['code']))? $evtdata['code'] : '';
-    $evt->login_id = (isset($t->decoded->sub->userId)) ? $t->decoded->sub->userId : 0;
+    $evt->login_id = (isset($t->decoded->sub->id)) ? $t->decoded->sub->id : 0;
     $evt->message = (isset($evtdata['message'])) ? $evtdata['message'] : '';
     $evt->level = (isset($evtdata['level'])) ? $evtdata['level'] : 0;
     $evt->object_data = (isset($evtdata['objectdata'])) ? json_encode($evtdata['objectdata']) : null;
