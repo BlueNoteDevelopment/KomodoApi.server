@@ -36,4 +36,8 @@ class Repository {
         return $this->locator->mapper("App\Models\Migration");
     }
     
+    public function ServiceAccounts(){
+        return $this->locator->mapper("App\Models\ServiceAccount");
+    }
+    
 }

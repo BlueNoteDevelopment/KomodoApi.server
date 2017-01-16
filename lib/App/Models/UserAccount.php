@@ -32,7 +32,7 @@ class UserAccount extends \Spot\Entity
     public static function events(EventEmitter $emitter)
     {
         $emitter->on("beforeInsert", function (EntityInterface $entity, MapperInterface $mapper) {
-            $entity->UserTokenGuid = Uuid::uuid4()->toString();
+            $entity->user_token_guid = Uuid::uuid4()->toString();
         });
     }
 
