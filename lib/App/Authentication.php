@@ -45,16 +45,35 @@ class Authentication {
                 $auth->guid = $u[0]->user_token_guid;
                 $auth->id =  $u[0]->id;
                 
+                
+                try{
+                    EventLogger::addQuickEventLogEntry($repository, 'User Login Successful for ' . $u[0]->user_account_name,
+                            '', $u[0]->id, 'LOGIN');
+                } catch (Exception $ex) {
+                    //we kind of don't care
+                }
+                
+                
                 return $auth;
             }else{
                 
                 $u[0]->failed_attempts ++;
-                
+                $err = 'User Login Failed for ' . $u[0]->user_account_name . '. Password Incorrect';
                 if($u[0]->failed_attempts > 3){
                     $u[0]->is_locked=true;
+                    $err = 'User Account Locked for ' . $u[0]->user_account_name . '. Password Incorrect';
                 }
                 
                 $usermap->save($u[0]);
+                
+                try{
+                    EventLogger::addQuickEventLogEntry($repository, $err,
+                            '', $u[0]->id, 'LOGIN FAIL',2);
+                } catch (Exception $ex) {
+                    //we kind of don't care
+                }
+                
+                
                 
                 throw new \Exception\ForbiddenException("Authentication Failed");
                 //return false;
