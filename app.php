@@ -5,7 +5,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 require '../vendor/autoload.php';
 
 //$verison is the database migration version.  bump up for any changes to schema
-$version = 1;
+$version = 2;
 /////////////
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
@@ -35,5 +35,6 @@ $app->get("/", function ($request, $response, $arguments) {
 
 require __DIR__ . "/routes/token.php";
 require __DIR__ . "/routes/upload.php";
+require __DIR__ . "/routes/eventlog.php";
 
 $app->run();

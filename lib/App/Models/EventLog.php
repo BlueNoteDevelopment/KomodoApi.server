@@ -11,8 +11,9 @@ class EventLog extends \Spot\Entity{
         return [
             "id" => ["type" => "integer", "unsigned" => true, "primary" => true, "autoincrement" => true],
             "collection_id" => ["type" => "integer", "unsigned" => true, "index" => true],
-            "log_name" => ["type" => "string", "length" => 255, "value"=> 0],
+            "log_name" => ["type" => "string", "length" => 255, "value"=> ""],
             "event_datetime_utc"   => ["type" => "datetime", "value" => new \DateTime(),"index" => "event"],
+            "timezone_offset" => ["type" => "integer", "unsigned" => false],
             "source" => ["type" => "string", "length" => 255],
             "ip" => ["type" => "string", "length" => 255],
             "event_code" => ["type" => "string", "length" => 25, "value"=> 0,"index" => "event"],
@@ -26,6 +27,14 @@ class EventLog extends \Spot\Entity{
     {
         return $this->eventdatetime_utc->getTimestamp();
     }
+    
+//    public function getEventDatetimeUtc(){
+//        if($this->event_datetime_utc !==null){
+//            return $this->event_datetime_utc->format('c');
+//        }else{
+//            return '';
+//        }
+//    }
 
 }
 

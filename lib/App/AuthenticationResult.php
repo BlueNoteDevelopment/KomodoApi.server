@@ -8,9 +8,9 @@ namespace App;
  * @author swm03
  */
 class AuthenticationResult {
-    var $result = false;
-    var $userName = '';
-    var $userGuid = '';
-    var $userId = 0;
+    public $result = false;
+    public $userName = '';
+    public $userGuid = '';
+    public $userId = 0;
 
 }

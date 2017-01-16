@@ -35,7 +35,7 @@ $app->post("/auth/token", function ($request, $response, $arguments) {
             "iat" => $now->getTimeStamp(),
             "exp" => $future->getTimeStamp(),
             "jti" => $jti,
-            "sub" => $authResult->userName,
+            "sub" => $authResult,
             "scope" => $scopes
         ];
 

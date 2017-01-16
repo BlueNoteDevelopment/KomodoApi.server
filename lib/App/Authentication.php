@@ -19,7 +19,7 @@ class Authentication {
     static function authenticateUser($user,$password,$repository){
 
         $usermap = $repository->UserAccounts();
-        $a = password_hash($password,PASSWORD_BCRYPT);
+        //$a = password_hash($password,PASSWORD_BCRYPT);
 
         $u = $usermap->all()->where(["user_account_name =" => $user, "is_active =" =>true ])->execute();
 
@@ -38,11 +38,10 @@ class Authentication {
                 
                 $u[0]->failed_attempts =0;
                 $usermap->save($u[0]);
-                
-                
+                               
                 $auth = new AuthenticationResult();
                 $auth->result = true;
-                $auth->userName = $u[0]->user_name;
+                $auth->userName = $u[0]->user_account_name;
                 $auth->userGuid = $u[0]->user_token_guid;
                 $auth->userId =  $u[0]->id;
                 
