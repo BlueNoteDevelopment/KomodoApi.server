@@ -81,5 +81,42 @@ class Authentication {
         }
     }
 
+    static function verifyUserFromGuid($userGuid,$repository){
+        
+           
+        $mapper = $repository->UserAccounts();
+        $user = $mapper->first(['user_token_guid =' => $userGuid]);
+        
+        if($user){
+            if(!$user->is_active || $user->is_locked){
+                throw new Exception('User Account is not allowed access',403);
+            }else{
+                //TODO: add permissions to User and return object to be added to container
+                return $user;
+            }
+        }else{
+            throw new Exception('Invalid User',404);
+        }
+        
+    }
+    
+        static function verifyServiceFromGuid($serviceGuid,$repository){
+        
+           
+        $mapper = $repository->ServiceAccounts();
+        $svc = $mapper->first(['service_token_guid =' => $serviceGuid]);
+        
+        if($svc){
+            if(!$svc->is_active){
+                throw new Exception('Service Account is not allowed access',403);
+            }else{
+                //TODO: add permissions to User and return object to be added to container
+                return $svc;
+            }
+        }else{
+            throw new Exception('Invalid User',404);
+        }
+        
+    }
 
 }

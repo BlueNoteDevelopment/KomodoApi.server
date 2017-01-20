@@ -80,6 +80,14 @@ $container["DBMigration"] = function ($container) {
     
 };
 
+$container["TokenAuthenticator"] = function ($container) {
+    
+    return new Middleware\TokenAuthenticator($container);
+    
+};
+
+
+$app->add("TokenAuthenticator");
 $app->add("DBMigration");
 $app->add("ClientResolver");
 //$app->add("HttpBasicAuthentication");
