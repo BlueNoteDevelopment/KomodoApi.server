@@ -49,7 +49,7 @@ class Authentication {
                 try{
                     EventLogger::addQuickEventLogEntry($repository, 'User Login Successful for ' . $u[0]->user_account_name,
                             '', $u[0]->id, 'LOGIN');
-                } catch (Exception $ex) {
+                } catch (\Exception $ex) {
                     //we kind of don't care
                 }
                 
@@ -69,7 +69,7 @@ class Authentication {
                 try{
                     EventLogger::addQuickEventLogEntry($repository, $err,
                             '', $u[0]->id, 'LOGIN FAIL',2);
-                } catch (Exception $ex) {
+                } catch (\Exception $ex) {
                     //we kind of don't care
                 }
                 
@@ -89,18 +89,18 @@ class Authentication {
         
         if($user){
             if(!$user->is_active || $user->is_locked){
-                throw new Exception('User Account is not allowed access',403);
+                throw new \Exception('User Account is not allowed access',403);
             }else{
                 //TODO: add permissions to User and return object to be added to container
                 return $user;
             }
         }else{
-            throw new Exception('Invalid User',404);
+            throw new \Exception('Invalid User',404);
         }
         
     }
     
-        static function verifyServiceFromGuid($serviceGuid,$repository){
+    static function verifyServiceFromGuid($serviceGuid,$repository){
         
            
         $mapper = $repository->ServiceAccounts();
@@ -108,15 +108,39 @@ class Authentication {
         
         if($svc){
             if(!$svc->is_active){
-                throw new Exception('Service Account is not allowed access',403);
+                throw new \Exception('Service Account is not allowed access',403);
             }else{
                 //TODO: add permissions to User and return object to be added to container
                 return $svc;
             }
         }else{
-            throw new Exception('Invalid User',404);
+            throw new \Exception('Invalid User',404);
         }
         
     }
 
+    static function authenticateService($serviceHostName,$repository){
+        
+           
+        $mapper = $repository->ServiceAccounts();
+        $svc = $mapper->first(['service_host_name =' => $serviceHostName]);
+        
+        if($svc){
+            if(!$svc->is_active){
+                throw new \Exception('Service Account is not allowed access',403);
+            }else{
+                //TODO: add permissions to User and return object to be added to container
+                $auth = new AuthenticationResult();
+                $auth->result = true;
+                $auth->authName = $svc->service_host_name;
+                $auth->guid = $svc->service_token_guid;
+                $auth->id =  $svc->id;
+                $auth->authType = 'SERVICE';
+                return $auth;
+            }
+        }else{
+            throw new \Exception('Invalid Service Account',404);
+        }
+        
+    }
 }
