@@ -24,13 +24,13 @@ class TokenAuthenticator {
     
     public function __invoke($request, $response, $next)
     {
+        if ((!$this->app_container["token"]->decoded)===null){
+            if($this->app_container["token"]->decoded->sub->authType ==='USER'){
+                \App\Authentication::verifyUserFromGuid($this->app_container["token"]->decoded->sub->guid, $this->app_container['repository']);
+            }else{
 
-        if($this->app_container["token"]->decoded->sub->authType ==='USER'){
-            \App\Authentication::verifyUserFromGuid($this->app_container["token"]->decoded->sub->guid, $this->app_container['repository']);
-        }else{
-
+            }
         }
-        
         return $next($request, $response);
 
     }
