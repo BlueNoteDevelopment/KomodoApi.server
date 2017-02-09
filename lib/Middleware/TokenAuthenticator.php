@@ -28,7 +28,7 @@ class TokenAuthenticator {
             if($this->app_container["token"]->decoded->sub->authType ==='USER'){
                 \App\Authentication::verifyUserFromGuid($this->app_container["token"]->decoded->sub->guid, $this->app_container['repository']);
             }else{
-
+                \App\Authentication::verifyServiceFromGuid($this->app_container["token"]->decoded->sub->guid, $this->app_container['repository']);
             }
         }
         return $next($request, $response);
