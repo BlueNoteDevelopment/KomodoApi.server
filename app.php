@@ -47,4 +47,9 @@ if(preg_match('/api\/serviceaccount/' ,$_SERVER['REQUEST_URI'])){
     require __DIR__ . "/routes/serviceaccount.php";
 }
 
+if(preg_match('/api\/useraccount/' ,$_SERVER['REQUEST_URI'])){
+    require __DIR__ . "/routes/useraccount.php";
+}
+
+
 $app->run();
