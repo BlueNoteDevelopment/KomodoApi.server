@@ -15,7 +15,7 @@ $app->map(['POST','PUT'],"/api/eventlog", function ($request, $response, $argume
     $evt = new App\Models\EventLog();
     
     $evt->log_name = (isset($evtdata['logname'])) ? $evtdata['logname'] : 'GENERAL' ;
-    $evt->event_datetime_utc = (isset($evtdata['utcdatetime'])) ? $evtdata['utcdatetime'] : new DateTime() ;
+    $evt->event_datetime_utc = (isset($evtdata['utcdatetime'])) ? new DateTime($evtdata['utcdatetime']) : new DateTime() ;
     $evt->timezone_offset = (isset($evtdata['timezoneoffset']))? $evtdata['timezoneoffset'] : 0  ;
     $evt->source = (isset($evtdata['computername'])) ?  $evtdata['computername'] : '';
     $evt->ip = $_SERVER['REMOTE_ADDR'];

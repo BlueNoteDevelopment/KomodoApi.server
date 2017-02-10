@@ -6,7 +6,7 @@ use Spot\EntityInterface;
 use Spot\MapperInterface;
 use Spot\EventEmitter;
 
-use Ramsey\Uuid;
+use Ramsey\Uuid\Uuid;
 
 
 class UserAccount extends \Spot\Entity

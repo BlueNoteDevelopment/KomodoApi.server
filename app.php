@@ -1,6 +1,7 @@
 <?php
 use Psr\Http\Message\ ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Ramsey\Uuid;
 
 require '../vendor/autoload.php';
 
@@ -34,7 +35,21 @@ $app->get("/", function ($request, $response, $arguments) {
 
 
 require __DIR__ . "/routes/token.php";
+
+//conditionally load routes
 require __DIR__ . "/routes/upload.php";
-require __DIR__ . "/routes/eventlog.php";
+
+if(preg_match('/api\/eventlog/' ,$_SERVER['REQUEST_URI'])){
+    require __DIR__ . "/routes/eventlog.php";
+}
+
+if(preg_match('/api\/serviceaccount/' ,$_SERVER['REQUEST_URI'])){
+    require __DIR__ . "/routes/serviceaccount.php";
+}
+
+if(preg_match('/api\/useraccount/' ,$_SERVER['REQUEST_URI'])){
+    require __DIR__ . "/routes/useraccount.php";
+}
+
 
 $app->run();
