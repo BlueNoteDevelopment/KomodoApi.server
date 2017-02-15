@@ -17,7 +17,7 @@ class ServiceAccount extends \Spot\Entity
     {
         return [
             "id" => ["type" => "integer", "unsigned" => true, "primary" => true, "autoincrement" => true],
-            "service_host_name" => ["type" => "string", "length" => 255, "unique" => true ,"required"=>true, "index" => true],
+            "service_host_name" => ["type" => "string", "length" => 255, "unique" => true ,"required"=>true],
             "is_active" => ["type" => "boolean", "default" => false],
             "service_token_guid" => ["type" => "string", "length" => 64, "unique" => true],
             "created_datetime"   => ["type" => "datetime", "value" => new \DateTime()],

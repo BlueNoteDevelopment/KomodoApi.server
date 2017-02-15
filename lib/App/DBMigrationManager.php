@@ -38,6 +38,8 @@ class DBMigrationManager {
             $this->locator->mapper("App\Models\EventLog")->migrate();
             $this->locator->mapper("App\Models\UserAccount")->migrate();
             $this->locator->mapper("App\Models\ServiceAccount")->migrate();
+            $this->locator->mapper("App\Models\Configuration")->migrate();
+            
             
             $mapper = $this->locator->mapper("App\Models\Migration");
 

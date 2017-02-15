@@ -71,7 +71,7 @@ $app->put("/api/serviceaccount/{id:[0-9]+}", function ($request, $response, $arg
     
     $result = ["status" => "OK", "code" =>0];
 
-    return $response->withStatus(201)
+    return $response->withStatus(200)
         ->withHeader("Content-Type", "application/json")
         ->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
     
@@ -108,7 +108,7 @@ $app->put("/api/serviceaccount/{hostname}", function ($request, $response, $argu
     
     $result = ["status" => "OK", "code" =>0];
 
-    return $response->withStatus(201)
+    return $response->withStatus(200)
         ->withHeader("Content-Type", "application/json")
         ->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
     
@@ -169,7 +169,7 @@ $app->delete("/api/serviceaccount/{id:[0-9]+}", function ($request, $response, $
     $mapper->delete(["id"=>$arguments['id']]);
     $result = ["status" => "OK", "code" =>0];
 
-    return $response->withStatus(201)
+    return $response->withStatus(200)
         ->withHeader("Content-Type", "application/json")
         ->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 });
@@ -181,7 +181,7 @@ $app->delete("/api/serviceaccount/{hostname}", function ($request, $response, $a
     
     $result = ["status" => "OK", "code" =>0];
 
-    return $response->withStatus(201)
+    return $response->withStatus(200)
         ->withHeader("Content-Type", "application/json")
         ->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 });

@@ -40,4 +40,8 @@ class Repository {
         return $this->locator->mapper("App\Models\ServiceAccount");
     }
     
+    public function Configurations(){
+        return $this->locator->mapper("App\Models\Configuration");
+    }
+    
 }

@@ -76,7 +76,7 @@ $app->put("/api/useraccount/{id:[0-9]+}", function ($request, $response, $argume
     $mapper = $this->repository->UserAccounts();
     $user = $mapper->first(['id' =>  $arguments['id']]);
     
-    $code = 201;
+    $code = 200;
     
     if(!$user){
         $result = ["status" => "NOEXIST", "code" =>1];
@@ -114,7 +114,7 @@ $app->put("/api/useraccount/{id:[0-9]+}", function ($request, $response, $argume
         }
         
         
-        if($code ==201){
+        if($code ==200){
             $mapper->save($user);
             $result = ["status" => "OK", "code" =>0, "user_guid" => $user->user_token_guid ];  
         }
@@ -143,7 +143,7 @@ $app->get("/api/useraccount/", function ($request, $response, $arguments) {
         }
     }
     
-    return $response->withStatus(201)
+    return $response->withStatus(200)
         ->withHeader("Content-Type", "application/json")
         ->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 });
@@ -165,7 +165,7 @@ $app->get("/api/useraccount/{id:[0-9]+}", function ($request, $response, $argume
         unset($result["encrypted_password"]);
     }
 
-    return $response->withStatus(201)
+    return $response->withStatus(200)
         ->withHeader("Content-Type", "application/json")
         ->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 });

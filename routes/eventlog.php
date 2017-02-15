@@ -84,7 +84,7 @@ function executeGetEventLog($target,$request, $response, $arguments){
     
     $result = $e->jsonSerialize();
 
-    return $response->withStatus(201)
+    return $response->withStatus(200)
         ->withHeader("Content-Type", "application/json")
         ->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 }
@@ -108,7 +108,7 @@ function executeDeleteEventLog($target,$request, $response, $arguments){
     
     $result = ["status" => "OK", "code" =>0];
 
-    return $response->withStatus(201)
+    return $response->withStatus(200)
         ->withHeader("Content-Type", "application/json")
         ->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 }
