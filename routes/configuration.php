@@ -125,7 +125,7 @@ $app->get("/api/configuration/{id:[0-9]+}", function ($request, $response, $argu
         ->write(json_encode($result, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 });
 
-$app->get("/api/configuration[/{serviceaccount}]", function ($request, $response, $arguments) {
+$app->get("/api/configuration[/{serviceaccount}[/{active}]]", function ($request, $response, $arguments) {
 
 
     $mapper = $this->repository->Configurations();  
@@ -133,7 +133,13 @@ $app->get("/api/configuration[/{serviceaccount}]", function ($request, $response
     if(isset($arguments['serviceaccount'])){
         
         $svcmapper = $this->repository->ServiceAccounts(); 
-        $svc = $svcmapper->first(["service_host_name" =>$arguments['serviceaccount'] ]);
+        
+        if(isset($arguments['active'])){
+            $svc = $svcmapper->first(["service_host_name" =>$arguments['serviceaccount'],"is_active"=>true ]);
+        }else{
+            $svc = $svcmapper->first(["service_host_name" =>$arguments['serviceaccount'] ]);
+        }
+
         if($svc){
             $svcid = $svc->id;
         }else{
